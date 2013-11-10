@@ -4,6 +4,33 @@
 		<style>canvas { width: 100%; height: 100% }</style>
 	</head>
 	<body>
+		<input id="searchBox" type="text" name="searchBox" onkeyup="aFunction()">
+		
+		</input>
+		<script type="text/javascript">
+			var filesArray = ["LeePerrySmith.js", "untitled.js"];
+			var tStringSearch;
+			function aFunction() 
+			{
+				var resultList = [];
+				var searchStr = document.getElementById("searchBox").value;	
+				if(searchStr)
+				{
+					tStringSearch = searchStr.toLowerCase();
+					for(var i = 0; i < filesArray.length; i++)
+					{
+						if(filesArray[i].toLowerCase().indexOf(tStringSearch) === 0)
+						{
+							//console.log(filesArray[i]);
+							resultList.push(filesArray[i]);
+						}
+					}	
+				}
+				console.log(resultList);
+			};
+
+			
+		</script>
 		<script src="https://rawgithub.com/mrdoob/three.js/master/build/three.js"></script>
 		<script>
 			var scene = new THREE.Scene();
