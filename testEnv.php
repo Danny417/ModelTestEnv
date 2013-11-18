@@ -1,54 +1,69 @@
 <html>
 	<head>
-		<title>My first Three.js app</title>
-		<style>canvas { width: 100%; height: 100% }</style>
+		<title>Test Environment</title>
+		<link rel="stylesheet" type="text/css" href="../css/input.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/icon.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/label.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/divider.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/segment.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/main.css">
+		
 	</head>
 	<body>
-		<input type="text" name="model input" value="model file name">
-		
-		<script>
-			var filelist = <?php echo json_encode(glob('*.png')) ?>;
-			for (var i = 0; i < filelist.length; i++ ){
-				console.log(filelist[i]);
-			}
-		</script>
-		
+		<div class="ui secondary inverted segment">
+		<table style="margin:0px auto;">
+			<tr>
+				<td>
+					<div class="ui mini icon input">
+						<input type="text" id="searchBox" onkeyup="typeSearch();" onmouseup="clickOnSearch();" placeholder="Search ..."/>
+						<i class="circular search icon"></i>
+					</div>						
+					<div class="dropdownlist" id="dropDownfileList" />
+				</td>
+				<td>
+					<div class="ui mini input">
+						<input id="cameraX" type="number" onkeyup="setCameraX(this.value)" onchange="setCameraX(this.value)" placeholder="Enter Camera X"/> 
+					</div>
+					<div class="ui mini input">
+						<input id="cameraY" type="number" onkeyup="setCameraY(this.value)" onchange="setCameraY(this.value)" placeholder="Enter Camera Y"/> 
+					</div>
+					<div class="ui mini input">
+						<input id="cameraZ" type="number" onkeyup="setCameraZ(this.value)" onchange="setCameraZ(this.value)" placeholder="Enter Camera Z"/> 
+					</div>
+				</td>
+			</tr>
+		</table>
+		</div>
+		<div class="ui horizontal divider">Models</div>
+		<script type="text/javascript" src="../js/main.js"></script>
 		<script src="https://rawgithub.com/mrdoob/three.js/master/build/three.js"></script>
-		<script>
-			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-
-			var renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
-			
-			//var geometry = new THREE.CubeGeometry(1,1,1);
-			//var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			//var cube = new THREE.Mesh( geometry, material );
-			//scene.add( cube );
-	
-			camera.position.z = 50;
-
-			function render() {
-				requestAnimationFrame(render);
-				object.rotation.y += 0.01;
-				object.rotation.x += 0.03;
-				renderer.render(scene, camera);
-			}
-			var object;
-var loader = new THREE.JSONLoader();          
-
-
-
-loader.load("untitled.js", function(geometry, materials) {
-     var material = new THREE.MeshFaceMaterial(materials);
-     object = new THREE.Mesh(geometry, material);
-
-     object.scale.set(2, 2, 2);
-     scene.add(object);
-});
-    
-     render();
+		<script src="../js/env.js"></script>
+		<script type="text/javascript">
+			//action when user type in the search box
+			function typeSearch() 
+			{
+				"use strict";
+				var filesArray = <?php echo json_encode(glob('./models/*.js')) ?>;
+				var resultList = [];
+				var searchStr = document.getElementById("searchBox").value;	
+				for(var i = 0; i < filesArray.length; i++)
+				{
+					if(filesArray[i].toLowerCase().indexOf(searchStr.toLowerCase()) >= 0)
+					{
+						resultList.push(filesArray[i]);
+					}
+				}	
+				displayFileList(resultList);
+			};
+			//action when user click on the search box
+			function clickOnSearch() {
+				"use strict";
+				var filesArray = <?php echo json_encode(glob('./models/*.js')) ?>;
+				displayFileList(filesArray);
+			};
+					
+			init();  			
+     		render();
 		</script>
 	</body>
 </html>
