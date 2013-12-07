@@ -43,7 +43,7 @@
 			function typeSearch() 
 			{
 				"use strict";
-				var filesArray = <?php echo json_encode(glob('./models/*.js')) ?>;
+				var filesArray = <?php echo json_encode(glob('./models/*.js')) ?>; //get file list in models folder
 				var resultList = [];
 				var searchStr = document.getElementById("searchBox").value;	
 				for(var i = 0; i < filesArray.length; i++)

@@ -1,7 +1,7 @@
 //display the files on the page
 function displayFileList(filesArray) {
 	"use strict";
-	var searchBar = document.getElementById("dropDownfileList");
+	var searchBar = document.getElementById("dropDownfileList"); //get input element
 	while(searchBar.firstChild) {
 		searchBar.removeChild(searchBar.firstChild);
 	}
