@@ -15,7 +15,7 @@ function init() {
 	Env.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 	Env.renderer = new THREE.WebGLRenderer();
-	Env.renderer.setSize( window.innerWidth, window.innerHeight );
+	Env.renderer.setSize( window.innerWidth, window.innerHeight-200 );
 	document.body.appendChild( Env.renderer.domElement );
 
 	Env.camera.position.z = 150;
@@ -59,6 +59,18 @@ function setCameraY(val) {
 };
 function setCameraZ(val) {
 	Env.camera.position.z = val;
+};
+
+function setLightX(val){
+	Env.light.position.x = val;
+};
+
+function setLightY(val){
+	Env.light.position.y = val;
+};
+
+function setLightZ(val){
+	Env.light.position.z = val;
 };
 
 //load the object model to the environment by given the file name with extension
