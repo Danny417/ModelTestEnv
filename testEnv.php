@@ -34,6 +34,10 @@
 		<table style="margin:0px auto;">
 			<tr>
 				<td>
+					<div class = "ui-widget-content" id="draggable" >
+					</div>
+				</td>
+				<td>
 					<div class="ui mini input">
 						<input id="lightX" type="number" onkeyup="setLightX(this.value)" onchange="setLightX(this.value)" placeholder="Enter Light X"/> 
 					</div>
@@ -54,6 +58,7 @@
 		<script src="https://rawgithub.com/mrdoob/three.js/master/build/three.js"></script>
 		<script src="../js/env.js"></script>
 		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript">
 			//action when user type in the search box
 			function typeSearch() 
@@ -89,7 +94,19 @@
 			}
 			//check ie before pushing code
 			});
-
+			
+			$(function(){
+				$("#draggable").draggable({
+				containment: 'window',
+				drag: function(){
+					var top = JSON.stringify($("#draggable").position().top)
+					var left = JSON.stringify($("#draggable").position().left)
+					setLightY(parseInt(top))
+					setLightX(parseInt(left))
+					console.log(Env.light.position)
+					}
+				});
+			});
 			init();  			
      		render();
 		</script>

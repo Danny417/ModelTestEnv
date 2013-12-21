@@ -20,3 +20,12 @@ div.dropdownlist {
 	display:none;
 	z-index:99999
 }
+	#draggable {
+	margin:0px auto;
+	background:FFFACD;
+	width:30px;
+	height:30px;
+	border-radius:50%;
+	border-radius:50%;
+	-webkit-border-radius:50%;
+	}
