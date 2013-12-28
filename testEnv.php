@@ -11,7 +11,7 @@
 		<meta content="utf-8" http-equiv="encoding">
 	</head>
 	<body>
-		<div class="ui secondary inverted segment">
+		<div class="ui secondary inverted segment" id="menuBar">
 		<table style="margin:0px auto;">
 			<tr>
 				<td>
@@ -32,19 +32,19 @@
 			</tr>
 		</table>
 		<table style="margin:0px auto;">
-			<tr>
+			<tr id="lightRow">
 				<td>
-					<div class = "ui-widget-content" id="draggable" >
+					<div class = "ui-widget-ontent" id="draggable">
 					</div>
 				</td>
 				<td>
 					<div class="ui mini input">
-						<input id="lightX" type="number" onkeyup="setLightX(this.value)" onchange="setLightX(this.value)" placeholder="Enter Light X"/> 
+						<input id="lightX" type="number" onkeyup="setLightX(this.value)" onchange="setLightX(this.value); setBulb(this.value)" placeholder="Enter Light X" /> 
 					</div>
 				</td>
 				<td>
 					<div class="ui mini input">
-						<input id="lightY" type="number" onkeyup="setLightY(this.value)" onchange="setLightY(this.value)" placeholder="Enter Light Y"/> 
+						<input id="lightY" type="number" onkeyup="setLightY(this.value)" onchange="setLightY(this.value); setBulbY(this.value)" placeholder="Enter Light Y"/> 
 					</div>
 					<div class="ui mini input">
 						<input id="lightZ" type="number" onkeyup="setLightZ(this.value)" onchange="setLightZ(this.value)" placeholder="Enter Light Z"/> 
@@ -97,16 +97,35 @@
 			
 			$(function(){
 				$("#draggable").draggable({
-				containment: 'window',
+				containment: "document",
 				drag: function(){
-					var top = JSON.stringify($("#draggable").position().top)
-					var left = JSON.stringify($("#draggable").position().left)
-					setLightY(parseInt(top))
-					setLightX(parseInt(left))
-					console.log(Env.light.position)
+					var top = JSON.stringify($("#draggable").position().top);
+					var y2d = $(window).height()/2 + $("#menuBar").height();
+					var left = JSON.stringify($("#draggable").position().left);
+					var x2d = $(window).width()/2;
+					var diffX = left-x2d;
+					var diffY = y2d-top;
+					var inputX = document.getElementById("lightX");
+					var inputY = document.getElementById("lightY");
+					setLightY(parseInt(diffY)+Env.camera.position.y);
+					setLightX(parseInt(diffX)+ Env.camera.position.x);
+					inputX.value = parseInt(Env.light.position.x);
+					inputY.value = parseInt(Env.light.position.y);
 					}
 				});
 			});
+			
+			function setBulb(x){
+				//$("#draggable").parent().css({position:'absolute'});
+				var left = x - Env.camera.position.x + $(window).width()/2;
+				$("#draggable").css({'left':left, position:'absolute'});
+			};
+			
+			function setBulbY(y){
+				var top = Env.camera.position.y - y + $(window).height()/2 + $("#menuBar").height();
+				$("#draggable").css({'top':top, position:'absolute'});
+			
+			};
 			init();  			
      		render();
 		</script>

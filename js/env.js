@@ -22,7 +22,9 @@ function init() {
 	Env.camera.position.y = 10;
 	// LIGHT
 	Env.light = new THREE.PointLight(0xffffff);
-	Env.light.position.set(0,50,150);
+	Env.light.position.set(0,0,150);
+	setBulb(0);
+	setBulbY(0);
 	Env.scene.add(Env.light);
 	
 	Env.loader = new THREE.JSONLoader(); 

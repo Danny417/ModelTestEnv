@@ -22,10 +22,11 @@ div.dropdownlist {
 }
 	#draggable {
 	margin:0px auto;
-	background:FFFACD;
+	background: radial-gradient(#FF6, #FFC);
+	opacity:0.6;
 	width:30px;
 	height:30px;
 	border-radius:50%;
-	border-radius:50%;
+	-moz-border-radius:50%;
 	-webkit-border-radius:50%;
 	}
